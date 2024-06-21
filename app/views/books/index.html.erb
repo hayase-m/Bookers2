@@ -1,34 +1,71 @@
-<h1>
-  User info
-</h1>
+<div class="left_books">
+  <h1>
+    User info
+  </h1>
 
-<%= image_tag current_user.get_profile_image(100,100) %>
+  <%= image_tag current_user.get_profile_image(100,100) %>
 
-<table>
-  <tr>
-    <th>name</th>
-    <th><%= current_user.name %></th>
-  </tr>
-  <tr>
-    <th>introduction</th>
-    <th><%= current_user.introduction %></th>
-  </tr>
-</table>
+  <table>
+    <tr>
+      <th>name</th>
+      <th><%= current_user.name %></th>
+    </tr>
+    <tr>
+      <th>introduction</th>
+      <th><%= current_user.introduction %></th>
+    </tr>
+  </table>
 
-<%= link_to edit_user_path(current_user) do %>
-  <span class="fa-solid fa-user-gear"></span>
-<% end %>
+  <%= link_to edit_user_path(current_user) do %>
+    <span class="fa-solid fa-user-gear"></span>
+  <% end %>
 
-<h1>
-  New book
-</h1>
-<!--投稿画面-->
-<%= form_with model: @book do |f| %>
-  <h4>Title</h4>
-  <%= f.text_field :title %>
+  <h1>
+    New book
+  </h1>
+  <!--投稿画面-->
+  <%= form_with model: @book do |f| %>
+    <h4>Title</h4>
+    <%= f.text_field :title %>
 
-  <h4>Opinion</h4>
-  <%= f.text_area :body %>
+    <h4>Opinion</h4>
+    <%= f.text_area :body %>
 
-  <%= f.submit 'Create Book' %>
-<% end %>
+    <%= f.submit 'Create Book' %>
+  <% end %>
+</div>
+
+<div class="right_books">
+  <h1>
+    Books
+  </h1>
+
+  <table>
+    <thead>
+      <tr>
+        <th></th>
+        <th>Title</th>
+        <th>Opinion</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @books.each do |book| %>
+        <tr>
+          <td>
+            <%= link_to user_path(book.user_id) do %>
+              <%= image_tag book.user.get_profile_image(80,80) %>
+            <% end %>
+          </td>
+          <td>
+            <%= link_to book_path(book) do %>
+              <%= book.title %>
+            <% end %>
+          </td>
+          <td><%= book.body %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+
+</div>
