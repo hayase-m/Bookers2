@@ -1,12 +1,22 @@
-<h1>Editing Book</h1>
-<%= form_with model: @book do |f| %>
-  <label for="inputTitle">Title</label>
-  <%= f.text_field :title, autofocus: true, id:"inputName" %>
-  <label for="inputBody">Opinion</label>
-  <%= f.text_field :body, id:"inputBody" %>
-  <%= f.submit "Update Book" %>
-<% end %>
+<div class="containar">
+  <div class="row">
+    <div class="mx-auto">
+      <h2>Editing Book</h2>
+      <%= form_with model: @book do |f| %>
+        <div class="form-group">
+          <label for="inputTitle">Title</label>
+          <%= f.text_field :title, autofocus: true, id:"inputName", class: "form-control" %>
+        </div>
+        <div class="form-group">
+          <label for="inputBody">Opinion</label>
+          <%= f.text_field :body, id:"inputBody", class: "form-control" %>
+        </div>
+        <%= f.submit "Update Book" %>
+      <% end %>
 
-<%= link_to "Show", book_path(@book) %>
-<span>|</span>
-<%= link_to "Back", books_path %>
+      <%= link_to "Show", book_path(@book) %>
+      <span>|</span>
+      <%= link_to "Back", books_path %>
+    </div>
+  </div>
+</div>
