@@ -1,3 +1,5 @@
+<%= render 'info', book: @new_book %>
+
 <div class="books_right">
   <h1>Book detail</h1>
 
@@ -19,7 +21,7 @@
         <%= link_to "Edit", edit_book_path(@book) %>
       </td>
       <td>
-        <%= link_to "Destroy", book_path(@book), method: :delete %>
+        <%= link_to "Destroy", book_path(@book), method: :delete, "data-confirm" => "本当に削除しますか？" %>
       </td>
     </tbody>
   </table>
