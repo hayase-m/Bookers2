@@ -1,41 +1,8 @@
-<div class="containar px-5">
+<div class="container px-5">
   <div class="row">
 
     <div class="col-md-3">
-      <% if @book.user_id == current_user.id %>
-        <%= render 'info', book: @new_book %>
-      <% else %>
-        <h1>
-          User info
-        </h1>
-        <%= image_tag @book.user.get_profile_image(100,100) %>
-        <table class="table table-hover">
-          <tr>
-            <th>name</th>
-            <th><%= @book.user.name %></th>
-          </tr>
-          <tr>
-            <th>introduction</th>
-            <th><%= @book.user.introduction %></th>
-          </tr>
-        </table>
-        <%= link_to edit_user_path(@book.user.id) do %>
-          <span class="fa-solid fa-user-gear"></span>
-        <% end %>
-        <h1>
-          New book
-        </h1>
-        <!--投稿画面-->
-        <%= form_with model: @new_book do |f| %>
-          <h4>Title</h4>
-          <%= f.text_field :title %>
-
-          <h4>Opinion</h4>
-          <%= f.text_area :body %>
-
-          <%= f.submit 'Create Book' %>
-        <% end %>
-      <% end %>
+      <%= render 'info', book: @new_book, user: @user %>
     </div>
 
     <div class="offset-md-1 col-md-8">
