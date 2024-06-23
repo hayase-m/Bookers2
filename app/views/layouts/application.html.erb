@@ -21,14 +21,14 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarNavDropdown">
           <ul class="navbar-nav ml-auto">
-          <li class="nav-item">
-            <%= link_to  root_path, class:'nav-link text-white' do %>
-              <i class="fa-solid fa-house"></i>
-              Home
-            <% end %>
-          </li>
 
           <% if user_signed_in? %>
+            <li class="nav-item">
+              <%= link_to  user_path(current_user.id), class:'nav-link text-white' do %>
+                <i class="fa-solid fa-house"></i>
+                Home
+              <% end %>
+            </li>
             <li class="nav-item">
               <%= link_to users_path, class:'nav-link text-white' do %>
                 <i class="fa-solid fa-users"></i>
@@ -48,6 +48,12 @@
               <% end %>
             </li>
           <% else %>
+            <li class="nav-item">
+              <%= link_to  root_path, class:'nav-link text-white' do %>
+                <i class="fa-solid fa-house"></i>
+                Home
+              <% end %>
+            </li>
             <li class="nav-item">
               <%= link_to about_path, class:'nav-link text-white' do %>
                 <i class="fa-solid fa-link"></i>
