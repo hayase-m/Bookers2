@@ -1,6 +1,14 @@
 <div class="containar">
   <div class="row">
     <div class="mx-auto">
+      <% if @user.errors.any? %>
+      <%= @user.errors.count %>件のerrorが発生しました
+      <ul>
+        <% @user.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+      <% end %>
       <h2>User info</h2>
       <%= form_with model: @user do |f| %>
         <div class="form-group">
