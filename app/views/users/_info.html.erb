@@ -1,10 +1,16 @@
 <div class="left_books">
+  <% if book.errors.any? %>
+    <%= book.errors.count %>件のerrorが発生しました
+    <ul>
+      <% book.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+    </ul>
+  <% end %>
   <h1>
     User info
   </h1>
-
   <%= image_tag user.get_profile_image(100,100) %>
-
   <table class="table table-hover">
     <tr>
       <th>name</th>
@@ -14,25 +20,36 @@
       <th>introduction</th>
       <th><%= user.introduction %></th>
     </tr>
+    <tr>
+      <th>follows</th>
+      <th><%= link_to user.following.count, follows_user_path(user) %> </th>
+    </tr>
+    <tr>
+      <th>followers</th>
+      <th><%= link_to user.followers.count, followers_user_path(user) %></th>
+    </tr>
   </table>
-
-  <%= link_to edit_user_path(user) do %>
-    <div class="btn btn-outline-secondary btn-block">
-      <i class="fas fa-user-cog"></i>
-    </div>
+  <% if user == current_user %>
+    <%= link_to edit_user_path(user) do %>
+      <div class="btn btn-outline-secondary btn-block">
+        <i class="fas fa-user-cog"></i>
+      </div>
+    <% end %>
+  <% else %>
+    <% if current_user.following.include?(user) %>
+      <%= link_to "フォローを外す", user_relationships_path(user), method: :delete, class: "btn btn-danger" %>
+    <% else %>
+      <%= link_to "フォローする", user_relationships_path(user), method: :post, class: "btn btn-primary" %>
+    <% end %>
   <% end %>
-
   <h1>
     New book
   </h1>
-  <!--投稿画面-->
   <%= form_with model: book do |f| %>
     <h4>Title</h4>
     <%= f.text_field :title %>
-
     <h4>Opinion</h4>
     <%= f.text_area :body %>
-
     <%= f.submit 'Create Book' %>
   <% end %>
 </div>
