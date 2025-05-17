@@ -18,6 +18,14 @@ class User < ApplicationRecord
 
   has_one_attached :profile_image
 
+  def follow(user)
+    active_relationships.create(followed_id: user.id)
+  end
+
+  def unfollow(user)
+    active_relationships.find_by(followed_id: user.id).destroy
+  end
+
   def get_profile_image(width, height)
     unless profile_image.attached?
       file_path = Rails.root.join('app/assets/images/no_image.jpg')
