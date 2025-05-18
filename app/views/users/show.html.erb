@@ -1,10 +1,8 @@
 <div class="container">
   <div class="row">
-
     <div class="col-md-3">
-        <%= render 'info', book: @book, user: @user %>
+      <%= render 'info', book: @book, user: @user %>
     </div>
-
     <div class="offset-md-1 col-md-8">
       <h1>Books</h1>
       <table class="table table-hover">
@@ -16,37 +14,23 @@
           </tr>
         </thead>
         <% @books.each do |book| %>
-        <tbody>
-          <td>
-            <%= link_to user_path(book.user_id) do %>
-              <div><%= image_tag book.user.get_profile_image(100,100) %></div>
-            <% end %>
-          </td>
-          <td>
-            <%= link_to book.title, book_path(book) %>
-          </td>
-          <td>
-            <%= book.body %>
-          </td>
+          <tbody>
             <td>
-              <% if book.favorited_by?(current_user) %>
-                <p>
-                  <%= link_to book_favorites_path(book), method: :delete do %>
-                    <i class="fas fa-heart"></i>
-                    <%= book.favorites.count %>
-                  <% end %>
-                </p>
-                <% else %>
-                <p>
-                  <%= link_to book_favorites_path(book), method: :post do %>
-                    <i class="fas fa-heart"></i>
-                    <%= book.favorites.count %>
-                  <% end %>
-                </p>
+              <%= link_to user_path(book.user_id) do %>
+                <div><%= image_tag book.user.get_profile_image(100,100) %></div>
               <% end %>
             </td>
             <td>
-              <p>コメント数：<%= book.book_comments.count %></p>
+              <%= link_to book.title, book_path(book) %>
+            </td>
+            <td>
+              <%= book.body %>
+            </td>
+            <td id="favorite-btn-<%= book.id %>">
+              <%= render "favorites/favorite-btn", book: book %>
+            </td>
+            <td id="comment_counter">
+              <%= render "book_comments/counter", book: book %>
             </td>
           </tbody>
         <% end %>
